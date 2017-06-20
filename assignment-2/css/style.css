@@ -1,0 +1,20 @@
+.list-inline{
+    margin: 0;
+    padding: 0;
+}
+.list-inline li{
+    display: inline-block;
+    margin: 0 10px;
+}
+.canvas-container{
+    max-width: 300px;
+    padding: 5px;
+    width: 50%;
+    float: left;
+}
+.canvas-container canvas {
+    border: 1px solid #000;
+}
+.container{
+    clear: both;
+}
