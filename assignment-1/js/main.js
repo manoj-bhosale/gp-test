@@ -23,7 +23,7 @@ var init = function(){
         $('#idSelect').append(optionIdList);
     })
     .fail(function(){
-
+        console.log('request failed');
     });
 }();
 
@@ -36,12 +36,18 @@ var populateTitle = function(id){
             optionTitleList += '<option value="'+dataCache[i].id+'">'+dataCache[i].title+'</option>';
         }
 
-        titleSelectControl.find('select').append(optionTitleList).val(id);
+        var currObj = $.grep(dataCache, function(obj){
+            return obj.id == id;
+        });
         
+        titleSelectControl.find('select').append(optionTitleList).val(id);
+
     if(id % 2 === 0){
         titleSelectControl.removeClass('hidden');
         body.removeClass('hidden');
-        body.find('textarea').val(dataCache[id].body);
+        if(currObj.length > 0){
+            body.find('textarea').val(currObj[0].body);
+        }
     }else{
         titleSelectControl.removeClass('hidden');
         body.addClass('hidden');
