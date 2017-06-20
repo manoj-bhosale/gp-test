@@ -58,7 +58,6 @@
                 });
 
                 this.add(activeObject);
-                this.fire('object:selected');
                 canvasA.remove(currentActiveObj);
             }
         },
