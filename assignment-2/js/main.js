@@ -58,11 +58,13 @@
                 });
 
                 this.add(activeObject);
+                this.renderAll();
+
                 canvasA.remove(currentActiveObj);
+                canvasA.renderAll();
             }
         },
         'object:added': function () {
-            this.renderAll();
             cnt = true;
         }
     });
