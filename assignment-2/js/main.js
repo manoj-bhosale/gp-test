@@ -4,7 +4,10 @@
     var canvasA = new fabric.Canvas('canvasA'),
         canvasB = new fabric.Canvas('canvasB');
 
-    var shapes = document.querySelectorAll("[data-shape]");
+    var shapes = document.querySelectorAll("[data-shape]"),
+        activeObject,
+        currentActiveObj,
+        cnt = false;
 
     if (shapes.length > 0) {
         for (var i = 0; i < shapes.length; i++) {
@@ -34,4 +37,37 @@
         canvasA.add(new fabric[shape](config));
         canvasA.renderAll();
     };
+
+    canvasA.on({
+        'object:moving': function (evt) {
+            //activeObject  = Object.assign({}, this.getActiveObject());
+            currentActiveObj = this.getActiveObject();
+            activeObject = $.extend({}, currentActiveObj);
+        },
+        'object:added': function () {
+            cnt = false;
+        }
+    });
+
+    canvasB.on({
+        'mouse:move': function (evt) {
+            if (activeObject && activeObject.isMoving && !cnt) {
+                activeObject.set({
+                    'left': (evt.e.clientX - this._offset.left),
+                    'top': (evt.e.clientY - this._offset.top)
+                });
+
+                this.add(activeObject);
+                this.fire('object:selected');
+                canvasA.remove(currentActiveObj);
+            }
+        },
+        'object:added': function () {
+            this.renderAll();
+            cnt = true;
+        },
+        'object:selected': function(){
+            console.log('1');
+        }
+    });
 }());
