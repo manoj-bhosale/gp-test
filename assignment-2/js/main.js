@@ -65,9 +65,6 @@
         'object:added': function () {
             this.renderAll();
             cnt = true;
-        },
-        'object:selected': function(){
-            console.log('1');
         }
     });
 }());
